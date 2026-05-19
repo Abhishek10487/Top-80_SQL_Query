@@ -1,12 +1,6 @@
 ````markdown
 # 🚀 Top 82 SQL Interview Questions and Answers
 
-file:///C:/Users/abhis/OneDrive/Desktop/SQL/SQL%20Database/Top_80_SQL_Query.sql
-![GitHub](https://img.shields.io/badge/GitHub-Project-green)
-![Data Analyst](https://img.shields.io/badge/Data%20Analytics-SQL-orange)
-
----
-
 # 📌 Project Overview
 
 This repository contains **Top 82 SQL Interview Questions and Answers** frequently asked in:
