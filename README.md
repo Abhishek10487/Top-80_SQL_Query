@@ -1,29 +1,33 @@
-# SQL Interview Questions & Answers – Complete SQL Practice Guide
+````markdown
+# 🚀 Top 82 SQL Interview Questions and Answers
 
-## 📌 Project Overview
+file:///C:/Users/abhis/OneDrive/Desktop/SQL/SQL%20Database/Top_80_SQL_Query.sql
+![GitHub](https://img.shields.io/badge/GitHub-Project-green)
+![Data Analyst](https://img.shields.io/badge/Data%20Analytics-SQL-orange)
 
-This repository contains a collection of **Top SQL Interview Questions and Answers** designed for beginners, intermediate learners, and data analysts preparing for SQL interviews.
+---
 
-The project includes:
+# 📌 Project Overview
 
-* SQL Table Creation
-* Insert Statements
-* SQL Queries
-* Window Functions
-* Joins
-* CTEs
-* Aggregate Functions
-* Ranking Functions
-* Duplicate Handling
-* Salary-Based Problems
-* Real-Time Interview Scenarios
+This repository contains **Top 82 SQL Interview Questions and Answers** frequently asked in:
 
-Perfect for:
+- Data Analyst Interviews
+- SQL Developer Interviews
+- BI Developer Interviews
+- Data Engineering Interviews
 
-* Data Analysts
-* SQL Developers
-* BI Developers
-* Freshers Preparing for Interviews
+The project covers:
+
+✅ SQL Basics  
+✅ Aggregate Functions  
+✅ Window Functions  
+✅ CTE  
+✅ Joins  
+✅ Subqueries  
+✅ Ranking Functions  
+✅ Real-Time SQL Scenarios  
+✅ Data Cleaning Queries  
+✅ Analytical SQL Problems  
 
 ---
 
@@ -40,11 +44,11 @@ CREATE TABLE emp1(
     manager_id INT,
     emp_age INT
 );
-```
+````
 
 ---
 
-## Insert Sample Data
+# 📥 Insert Sample Data
 
 ```sql
 INSERT INTO emp1 VALUES (101, 'Ankit', 100,10000, 4, 39);
@@ -61,7 +65,7 @@ INSERT INTO emp1 VALUES (110, 'Rakesh',300,7000,6,50);
 
 ---
 
-# 📚 Top SQL Interview Questions & Answers
+# 📚 SQL Interview Questions & Answers
 
 ---
 
@@ -73,10 +77,6 @@ FROM emp1
 GROUP BY emp_id
 HAVING COUNT(1) > 1;
 ```
-
-### ✅ Explanation
-
-Used to identify duplicate employee IDs in the table.
 
 ---
 
@@ -92,13 +92,9 @@ DELETE FROM CTE
 WHERE rnk > 1;
 ```
 
-### ✅ Explanation
-
-Removes duplicate rows while keeping one original record.
-
 ---
 
-# 3️⃣ UNION vs UNION ALL
+# 3️⃣ Difference Between UNION and UNION ALL
 
 ```sql
 SELECT manager_id FROM emp
@@ -112,16 +108,9 @@ UNION ALL
 SELECT manager_id FROM emp1;
 ```
 
-### ✅ Difference
-
-| UNION              | UNION ALL        |
-| ------------------ | ---------------- |
-| Removes duplicates | Keeps duplicates |
-| Slower             | Faster           |
-
 ---
 
-# 4️⃣ RANK vs DENSE_RANK vs ROW_NUMBER
+# 4️⃣ Difference Between RANK, DENSE_RANK, ROW_NUMBER
 
 ```sql
 SELECT emp_id,
@@ -134,12 +123,6 @@ SELECT emp_id,
 FROM emp1;
 ```
 
-### ✅ Explanation
-
-* `RANK()` skips numbers for duplicates
-* `DENSE_RANK()` does not skip numbers
-* `ROW_NUMBER()` always gives unique sequence
-
 ---
 
 # 5️⃣ Department Wise Highest Salary
@@ -147,10 +130,7 @@ FROM emp1;
 ```sql
 SELECT *
 FROM (
-    SELECT emp_id,
-           emp_name,
-           department_id,
-           salary,
+    SELECT *,
            RANK() OVER(PARTITION BY department_id ORDER BY salary DESC) AS rnk
     FROM emp1
 ) a
@@ -185,7 +165,7 @@ WHERE rnk = 2;
 
 ---
 
-# 8️⃣ Find All Transactions Done by Shilpa
+# 8️⃣ Find Transactions Done by Shilpa
 
 ```sql
 SELECT *
@@ -195,7 +175,7 @@ WHERE UPPER(customer_name) = 'SHILPA';
 
 ---
 
-# 9️⃣ Employees Earning More Than Their Managers
+# 9️⃣ Employees Earning More Than Managers
 
 ```sql
 SELECT e.emp_id,
@@ -266,7 +246,48 @@ SELECT CURRENT_TIMESTAMP;
 
 ---
 
-# 1️⃣5️⃣ Retrieve Last 5 Records
+# 1️⃣5️⃣ Find Duplicate Records
+
+```sql
+SELECT emp_id,
+       emp_name,
+       COUNT(*) AS total_count
+FROM emp1
+GROUP BY emp_id, emp_name
+HAVING COUNT(*) > 1;
+```
+
+---
+
+# 1️⃣6️⃣ Delete Duplicate Rows
+
+```sql
+WITH CTE AS (
+    SELECT emp_id,
+           ROW_NUMBER() OVER(PARTITION BY emp_id ORDER BY department_id) AS row_num
+    FROM emp1
+)
+DELETE FROM CTE
+WHERE row_num > 1;
+```
+
+---
+
+# 1️⃣7️⃣ Common Records from Two Tables
+
+```sql
+SELECT *
+FROM table1
+
+INTERSECT
+
+SELECT *
+FROM table2;
+```
+
+---
+
+# 1️⃣8️⃣ Retrieve Last 5 Records
 
 ```sql
 SELECT *
@@ -277,7 +298,7 @@ LIMIT 5;
 
 ---
 
-# 1️⃣6️⃣ Top 5 Highest Salaries
+# 1️⃣9️⃣ Top 5 Highest Salaries
 
 ```sql
 SELECT *
@@ -288,7 +309,7 @@ LIMIT 5;
 
 ---
 
-# 1️⃣7️⃣ Total Salary of Employees
+# 2️⃣0️⃣ Total Salary of Employees
 
 ```sql
 SELECT SUM(salary) AS total_salary
@@ -297,7 +318,17 @@ FROM emp1;
 
 ---
 
-# 1️⃣8️⃣ Employees Name Starts With 'A'
+# 2️⃣1️⃣ Employees Joined in 2020
+
+```sql
+SELECT *
+FROM employee
+WHERE YEAR(join_date) = 2020;
+```
+
+---
+
+# 2️⃣2️⃣ Employees Name Starts With 'A'
 
 ```sql
 SELECT *
@@ -307,7 +338,7 @@ WHERE emp_name LIKE 'A%';
 
 ---
 
-# 1️⃣9️⃣ Employees Without Manager
+# 2️⃣3️⃣ Employees Without Manager
 
 ```sql
 SELECT *
@@ -317,7 +348,7 @@ WHERE manager_id IS NULL;
 
 ---
 
-# 2️⃣0️⃣ Department With Highest Number of Employees
+# 2️⃣4️⃣ Department With Highest Employees
 
 ```sql
 SELECT department_id,
@@ -330,7 +361,7 @@ LIMIT 1;
 
 ---
 
-# 2️⃣1️⃣ Count Employees in Each Department
+# 2️⃣5️⃣ Employee Count by Department
 
 ```sql
 SELECT department_id,
@@ -341,7 +372,23 @@ GROUP BY department_id;
 
 ---
 
-# 2️⃣2️⃣ Update Salary by 10%
+# 2️⃣6️⃣ Highest Salary in Each Department
+
+```sql
+SELECT department_id,
+       emp_id,
+       salary
+FROM emp1 e
+WHERE salary = (
+    SELECT MAX(salary)
+    FROM emp1
+    WHERE department_id = e.department_id
+);
+```
+
+---
+
+# 2️⃣7️⃣ Increase Salary by 10%
 
 ```sql
 UPDATE emp1
@@ -350,7 +397,17 @@ SET salary = salary * 1.10;
 
 ---
 
-# 2️⃣3️⃣ Youngest Employee
+# 2️⃣8️⃣ Salary Between Range
+
+```sql
+SELECT *
+FROM emp1
+WHERE salary BETWEEN 5000 AND 10000;
+```
+
+---
+
+# 2️⃣9️⃣ Youngest Employee
 
 ```sql
 SELECT *
@@ -361,17 +418,19 @@ LIMIT 1;
 
 ---
 
-# 2️⃣4️⃣ First and Last Record
+# 3️⃣0️⃣ First and Last Record
 
 ```sql
 (SELECT * FROM emp1 ORDER BY emp_id ASC LIMIT 1)
+
 UNION ALL
+
 (SELECT * FROM emp1 ORDER BY emp_id DESC LIMIT 1);
 ```
 
 ---
 
-# 2️⃣5️⃣ Employees Reporting to Specific Manager
+# 3️⃣1️⃣ Employees Reporting to Manager
 
 ```sql
 SELECT *
@@ -381,19 +440,89 @@ WHERE manager_id = 2;
 
 ---
 
-# 2️⃣6️⃣ Department Wise Total & Average Salary
+# 3️⃣2️⃣ Total Departments
 
 ```sql
-SELECT department_id,
-       SUM(salary) AS total_salary,
-       AVG(salary) AS avg_salary
-FROM emp1
-GROUP BY department_id;
+SELECT COUNT(DISTINCT department_id) AS total_departments
+FROM emp1;
 ```
 
 ---
 
-# 2️⃣7️⃣ Employees Without Subordinates
+# 3️⃣3️⃣ Lowest Average Salary Department
+
+```sql
+SELECT department_id,
+       AVG(salary) AS avg_salary
+FROM emp1
+GROUP BY department_id
+ORDER BY avg_salary ASC
+LIMIT 1;
+```
+
+---
+
+# 3️⃣4️⃣ Delete Employees from Department
+
+```sql
+DELETE FROM emp1
+WHERE department_id = 100;
+```
+
+---
+
+# 3️⃣5️⃣ Employees More Than 5 Years Experience
+
+```sql
+SELECT *
+FROM employees
+WHERE DATEDIFF(CURDATE(), join_date) > 1825;
+```
+
+---
+
+# 3️⃣6️⃣ Second Largest Value
+
+```sql
+SELECT MAX(salary)
+FROM emp1
+WHERE salary < (
+    SELECT MAX(salary)
+    FROM emp1
+);
+```
+
+---
+
+# 3️⃣7️⃣ Remove All Records Keep Structure
+
+```sql
+TRUNCATE TABLE emp1;
+```
+
+---
+
+# 3️⃣8️⃣ Employee Records in XML Format
+
+```sql
+SELECT employee_id,
+       name,
+       department_id
+FROM employees
+FOR XML AUTO;
+```
+
+---
+
+# 3️⃣9️⃣ Current Month Name
+
+```sql
+SELECT MONTHNAME(CURDATE());
+```
+
+---
+
+# 4️⃣0️⃣ Employees Without Subordinates
 
 ```sql
 SELECT *
@@ -407,7 +536,99 @@ WHERE emp_id NOT IN (
 
 ---
 
-# 2️⃣8️⃣ Find Same Salary Employees
+# 4️⃣1️⃣ Total Sales Per Customer
+
+```sql
+SELECT customer_id,
+       SUM(sales_amount)
+FROM sales
+GROUP BY customer_id;
+```
+
+---
+
+# 4️⃣2️⃣ Check If Table Is Empty
+
+```sql
+SELECT CASE
+       WHEN EXISTS (SELECT 1 FROM table_name)
+       THEN 'Not Empty'
+       ELSE 'Empty'
+       END;
+```
+
+---
+
+# 4️⃣3️⃣ Second Highest Salary in Each Department
+
+```sql
+SELECT department_id,
+       salary
+FROM (
+    SELECT department_id,
+           salary,
+           DENSE_RANK() OVER(PARTITION BY department_id ORDER BY salary DESC) AS rank_no
+    FROM employees
+) ranked_salaries
+WHERE rank_no = 2;
+```
+
+---
+
+# 4️⃣4️⃣ Salary Multiple of 10000
+
+```sql
+SELECT *
+FROM employees
+WHERE salary % 10000 = 0;
+```
+
+---
+
+# 4️⃣5️⃣ Fetch NULL Values
+
+```sql
+SELECT *
+FROM employees
+WHERE column_name IS NULL;
+```
+
+---
+
+# 4️⃣6️⃣ Employee Count by Job Title
+
+```sql
+SELECT job_title,
+       COUNT(*)
+FROM employees
+GROUP BY job_title;
+```
+
+---
+
+# 4️⃣7️⃣ Names Ending with 'n'
+
+```sql
+SELECT *
+FROM employees
+WHERE name LIKE '%n';
+```
+
+---
+
+# 4️⃣8️⃣ Employees in Both Departments
+
+```sql
+SELECT employee_id
+FROM employees
+WHERE department_id IN (101,102)
+GROUP BY employee_id
+HAVING COUNT(DISTINCT department_id) = 2;
+```
+
+---
+
+# 4️⃣9️⃣ Employees With Same Salary
 
 ```sql
 SELECT *
@@ -422,23 +643,375 @@ WHERE salary IN (
 
 ---
 
-# 2️⃣9️⃣ Top 3 Highest Paid Employees in Each Department
+# 5️⃣0️⃣ Update Salary Based on Department
+
+```sql
+UPDATE emp1
+SET salary =
+CASE
+    WHEN department_id = 101 THEN salary * 1.10
+    WHEN department_id = 102 THEN salary * 1.05
+    ELSE salary
+END;
+```
+
+---
+
+# 5️⃣1️⃣ Employees Without Department
+
+```sql
+SELECT *
+FROM employees
+WHERE department_id IS NULL;
+```
+
+---
+
+# 5️⃣2️⃣ Max & Min Salary by Department
+
+```sql
+SELECT department_id,
+       MAX(salary),
+       MIN(salary)
+FROM employees
+GROUP BY department_id;
+```
+
+---
+
+# 5️⃣3️⃣ Employees Hired in Last 6 Months
+
+```sql
+SELECT *
+FROM employees
+WHERE hire_date > ADDDATE(CURDATE(), INTERVAL -6 MONTH);
+```
+
+---
+
+# 5️⃣4️⃣ Department Wise Total & Average Salary
+
+```sql
+SELECT department_id,
+       SUM(salary) AS total_salary,
+       AVG(salary) AS avg_salary
+FROM emp1
+GROUP BY department_id;
+```
+
+---
+
+# 5️⃣5️⃣ Employees Joined Same Month as Manager
+
+```sql
+SELECT e.emp_id,
+       e.name
+FROM emp1 e
+JOIN emp1 m
+ON e.manager_id = m.emp_id
+WHERE MONTH(e.join_date) = MONTH(m.join_date)
+AND YEAR(e.join_date) = YEAR(m.join_date);
+```
+
+---
+
+# 5️⃣6️⃣ Names Start & End Same Letter
+
+```sql
+SELECT COUNT(*)
+FROM emp1
+WHERE LEFT(emp_name,1) = RIGHT(emp_name,1);
+```
+
+---
+
+# 5️⃣7️⃣ Employee Name & Salary in Single String
+
+```sql
+SELECT CONCAT(emp_name, ' earns ', salary) AS employee_info
+FROM emp1;
+```
+
+---
+
+# 5️⃣8️⃣ Salary Higher Than Manager
+
+```sql
+SELECT e.emp_id,
+       e.emp_name
+FROM emp1 e
+JOIN emp1 m
+ON e.manager_id = m.emp_id
+WHERE e.salary > m.salary;
+```
+
+---
+
+# 5️⃣9️⃣ Departments with Less Than 3 Employees
+
+```sql
+SELECT *
+FROM employees
+WHERE department_id IN (
+    SELECT department_id
+    FROM employees
+    GROUP BY department_id
+    HAVING COUNT(*) < 3
+);
+```
+
+---
+
+# 6️⃣0️⃣ Employees with Same First Name
+
+```sql
+SELECT *
+FROM employees
+WHERE first_name IN (
+    SELECT first_name
+    FROM employees
+    GROUP BY first_name
+    HAVING COUNT(*) > 1
+);
+```
+
+---
+
+# 6️⃣1️⃣ Delete Employees More Than 15 Years
+
+```sql
+DELETE FROM employees
+WHERE DATEDIFF(CURDATE(), join_date) > 5475;
+```
+
+---
+
+# 6️⃣2️⃣ Employees Under Same Manager
+
+```sql
+SELECT *
+FROM employees
+WHERE manager_id = 2;
+```
+
+---
+
+# 6️⃣3️⃣ Top 3 Highest Paid Employees Department Wise
 
 ```sql
 SELECT *
 FROM (
     SELECT *,
            DENSE_RANK() OVER(PARTITION BY department_id ORDER BY salary DESC) AS rank_no
-    FROM emp1
+    FROM employees
 ) ranked_employees
 WHERE rank_no <= 3;
 ```
 
 ---
 
-# 3️⃣0️⃣ Even and Odd Records
+# 6️⃣4️⃣ Employees with 5+ Years Experience
 
-## Odd Records
+```sql
+SELECT *
+FROM employees
+WHERE DATEDIFF(CURDATE(), join_date) > 1825;
+```
+
+---
+
+# 6️⃣5️⃣ Departments Not Hiring in Last 2 Years
+
+```sql
+SELECT *
+FROM employees
+WHERE department_id IN (
+    SELECT department_id
+    FROM employees
+    GROUP BY department_id
+    HAVING MAX(hire_date) < ADDDATE(CURDATE(), INTERVAL -2 YEAR)
+);
+```
+
+---
+
+# 6️⃣6️⃣ Employees Earning Above Department Average
+
+```sql
+SELECT *
+FROM employees e
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employees
+    WHERE department_id = e.department_id
+);
+```
+
+---
+
+# 6️⃣7️⃣ Managers with More Than 5 Subordinates
+
+```sql
+SELECT *
+FROM employees
+WHERE employee_id IN (
+    SELECT manager_id
+    FROM employees
+    GROUP BY manager_id
+    HAVING COUNT(*) > 5
+);
+```
+
+---
+
+# 6️⃣8️⃣ Employee Name & Hire Date Format
+
+```sql
+SELECT CONCAT(name, ' - ', DATE_FORMAT(hire_date, '%m/%d/%Y')) AS employee_info
+FROM employees;
+```
+
+---
+
+# 6️⃣9️⃣ Employees Salary in Top 10%
+
+```sql
+SELECT *
+FROM employees
+WHERE salary >= (
+    SELECT PERCENTILE_CONT(0.9)
+    WITHIN GROUP (ORDER BY salary ASC)
+    FROM employees
+);
+```
+
+---
+
+# 7️⃣0️⃣ Employee Age Brackets
+
+```sql
+SELECT CASE
+       WHEN age BETWEEN 20 AND 30 THEN '20-30'
+       WHEN age BETWEEN 31 AND 40 THEN '31-40'
+       ELSE '41+'
+       END AS age_bracket,
+       COUNT(*)
+FROM employees
+GROUP BY age_bracket;
+```
+
+---
+
+# 7️⃣1️⃣ Average Salary of Top 5 Employees
+
+```sql
+SELECT department_id,
+       AVG(salary)
+FROM (
+    SELECT department_id,
+           salary,
+           DENSE_RANK() OVER(PARTITION BY department_id ORDER BY salary DESC) AS rank_no
+    FROM employees
+) ranked_employees
+WHERE rank_no <= 5
+GROUP BY department_id;
+```
+
+---
+
+# 7️⃣2️⃣ Employee Percentage by Department
+
+```sql
+SELECT department_id,
+       (COUNT(*) * 100.0 / (SELECT COUNT(*) FROM employees)) AS percentage
+FROM employees
+GROUP BY department_id;
+```
+
+---
+
+# 7️⃣3️⃣ Email Domain Search
+
+```sql
+SELECT *
+FROM employees
+WHERE email LIKE '%@example.com';
+```
+
+---
+
+# 7️⃣4️⃣ Year-to-Date Sales
+
+```sql
+SELECT customer_id,
+       SUM(sales_amount)
+FROM sales
+WHERE sale_date BETWEEN '2024-01-01' AND CURDATE()
+GROUP BY customer_id;
+```
+
+---
+
+# 7️⃣5️⃣ Hire Date with Day Name
+
+```sql
+SELECT name,
+       hire_date,
+       DAYNAME(hire_date) AS day_of_week
+FROM employees;
+```
+
+---
+
+# 7️⃣6️⃣ Employees Older Than 30
+
+```sql
+SELECT *
+FROM employees
+WHERE DATEDIFF(CURDATE(), birth_date)/365 > 30;
+```
+
+---
+
+# 7️⃣7️⃣ Employees by Salary Range
+
+```sql
+SELECT CASE
+       WHEN salary BETWEEN 0 AND 20000 THEN '0-20K'
+       WHEN salary BETWEEN 20001 AND 50000 THEN '20K-50K'
+       ELSE '50K+'
+       END AS salary_range,
+       COUNT(*)
+FROM employees
+GROUP BY salary_range;
+```
+
+---
+
+# 7️⃣8️⃣ Employees Without Bonus
+
+```sql
+SELECT *
+FROM employees
+WHERE bonus IS NULL;
+```
+
+---
+
+# 7️⃣9️⃣ Salary Statistics by Job Role
+
+```sql
+SELECT job_role,
+       MAX(salary) AS highest_salary,
+       MIN(salary) AS lowest_salary,
+       AVG(salary) AS avg_salary
+FROM employees
+GROUP BY job_role;
+```
+
+---
+
+# 8️⃣0️⃣ Odd Records
 
 ```sql
 SELECT *
@@ -446,7 +1019,9 @@ FROM employeeinfo
 WHERE empid % 2 <> 0;
 ```
 
-## Even Records
+---
+
+# 8️⃣1️⃣ Even Records
 
 ```sql
 SELECT *
@@ -456,37 +1031,26 @@ WHERE empid % 2 = 0;
 
 ---
 
-# 🎯 SQL Concepts Covered
+# 8️⃣2️⃣ Top SQL Concepts Covered
 
-* SQL Basics
-* Aggregate Functions
-* Window Functions
-* CTE
-* Self Join
-* Subqueries
-* Ranking Functions
-* Data Cleaning
-* Duplicate Handling
-* Analytical SQL Queries
+✅ Joins
+✅ CTE
+✅ Window Functions
+✅ Aggregate Functions
+✅ Ranking Functions
+✅ Subqueries
+✅ Analytical Queries
+✅ Data Cleaning
+✅ SQL Optimization
 
 ---
 
 # 🚀 Tools Used
 
-* SQL Server
 * MySQL
+* SQL Server
 * PostgreSQL
 * SSMS
-
----
-
-# 📈 Ideal For
-
-* SQL Interview Preparation
-* Data Analyst Portfolio
-* GitHub SQL Projects
-* SQL Practice
-* BI Developer Learning
 
 ---
 
@@ -494,10 +1058,9 @@ WHERE empid % 2 = 0;
 
 If you found this project useful:
 
-* ⭐ Star this repository
-* 🍴 Fork the repository
-* 🧠 Practice the queries
-* 📢 Share with others
+⭐ Star this repository
+🍴 Fork this repository
+📢 Share with others
 
 ---
 
@@ -506,3 +1069,6 @@ If you found this project useful:
 **Abhishek Kumar**
 
 SQL | Power BI | Data Analytics | Business Intelligence
+
+```
+```
